@@ -1,0 +1,7 @@
+target/*
+__pycache__/*
+*/__pycache__/*
+.vscode/*
+.python-version
+*.pyc
+dump.py
