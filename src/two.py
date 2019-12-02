@@ -37,6 +37,12 @@ def solve_part2(intcodes):
             intcodes_c = intcodes[:]  # resetting the memory banks
             intcodes_c[1] = one
             intcodes_c[2] = two
-            if run_program(intcodes_c) == 19690720:
-                print(f"{100*one+two}")
-                return
+            r = run_program(intcodes_c)
+            if r // 10000 == 1969:
+                if r == 19690720:
+                    print(f"{r} -> {100*one+two}")
+                    return
+            else:
+                # leading values increase with each one, and then incrementally with each two,
+                # so we don't need to check for all leading values
+                break
