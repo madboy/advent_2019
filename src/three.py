@@ -21,29 +21,33 @@ def run(input_file):
 
     places = set()
     current_manhattan = 10000
-    for wire in wires:
+    current_steps = 10000
+    csteps = {}
+    for w, wire in enumerate(wires):
         start = Point(0, 0)
+        wire_steps = 0
         for movement in wire:
             direction, steps = movement[0], int(movement[1:])
             for m in range(1, steps + 1):
+                wire_steps += 1
                 if direction == "R":
                     new = Point(start.x + m, start.y)
-                if direction == "L":
+                elif direction == "L":
                     new = Point(start.x - m, start.y)
-                if direction == "U":
+                elif direction == "U":
                     new = Point(start.x, start.y + m)
-                if direction == "D":
+                elif direction == "D":
                     new = Point(start.x, start.y - m)
-                if new in places:
+                # only count it as crossing if we are on the second wire
+                if new in places and w == 1:
                     manhattan = abs(new.x) + abs(new.y)
                     if current_manhattan > manhattan:
                         current_manhattan = manhattan
-                else:
+                    if csteps[new] + wire_steps < current_steps:
+                        current_steps = csteps[new] + wire_steps
+                elif w == 0:  # only add for the first wire
                     places.add(new)
+                    csteps[new] = wire_steps
 
             start = new
-    print(current_manhattan)
-
-
-def solve(input):
-    pass
+    print(current_manhattan, current_steps)
