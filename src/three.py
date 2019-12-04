@@ -39,13 +39,14 @@ def run(input_file):
                 elif direction == "D":
                     new = Point(start.x, start.y - m)
                 # only count it as crossing if we are on the second wire
-                if new in places and w == 1:
-                    manhattan = abs(new.x) + abs(new.y)
-                    if current_manhattan > manhattan:
+                if w == 1 and new in places:
+                    if current_manhattan > (manhattan := abs(new.x) + abs(new.y)):
                         current_manhattan = manhattan
-                    if csteps[new] + wire_steps < current_steps:
-                        current_steps = csteps[new] + wire_steps
-                elif w == 0:  # only add for the first wire
+                    if (steps_to_here := csteps[new] + wire_steps) < current_steps:
+                        current_steps = steps_to_here
+                elif (
+                    w == 0 and new not in csteps
+                ):  # only add for the first wire and for first visit
                     places.add(new)
                     csteps[new] = wire_steps
 
