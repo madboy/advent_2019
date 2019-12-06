@@ -8,29 +8,20 @@ def get_value(mode, idx, intcodes):
     return idx
 
 
-ops = {1: operator.add, 2: operator.mul}
-
-
 def run_program(intcodes, input_value=1):
+    ops = {1: operator.add, 2: operator.mul}
+
     i = 0
     while i < len(intcodes):
         opcode, _, mode1, mode2 = get_digits(intcodes[i])
         if opcode == 9:
             break
-        elif opcode == 1:
+        elif opcode == 1 or opcode == 2:
             idx1 = intcodes[i + 1]
             idx2 = intcodes[i + 2]
             idx3 = intcodes[i + 3]
-            intcodes[idx3] = get_value(mode1, idx1, intcodes) + get_value(
-                mode2, idx2, intcodes
-            )
-            i += 4
-        elif opcode == 2:
-            idx1 = intcodes[i + 1]
-            idx2 = intcodes[i + 2]
-            idx3 = intcodes[i + 3]
-            intcodes[idx3] = get_value(mode1, idx1, intcodes) * get_value(
-                mode2, idx2, intcodes
+            intcodes[idx3] = ops[opcode](
+                get_value(mode1, idx1, intcodes), get_value(mode2, idx2, intcodes),
             )
             i += 4
         elif opcode == 3:
@@ -38,7 +29,8 @@ def run_program(intcodes, input_value=1):
             intcodes[idx1] = input_value
             i += 2
         elif opcode == 4:
-            print("output: ", get_value(mode1, intcodes[i + 1], intcodes))
+            idx1 = intcodes[i + 1]
+            print("output: ", get_value(mode1, idx1, intcodes))
             i += 2
         else:
             print("unknown opcode", intcodes[i])
