@@ -20,3 +20,11 @@ def turn(current_direction, turn_direction):
     turns = {"left": -1, "right": 1, "straight": 0}
     new_direction = (directions[current_direction] + turns[turn_direction]) % 4
     return rdirections[new_direction]
+
+
+def get_digits(number):
+    ones = number % 10
+    tens = (number // 10) % 10
+    hundreds = (number // 100) % 10
+    thousands = (number // 1000) % 10
+    return ones, tens, hundreds, thousands
