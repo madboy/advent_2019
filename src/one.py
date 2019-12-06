@@ -1,4 +1,4 @@
-from src.tools import process, timing
+from tools.tools import process, timing
 
 
 def fuel_requirement_part1(mass):

@@ -1,5 +1,5 @@
 import pytest
-from src.tools import process, timing
+from tools.tools import process, timing
 
 
 def get_intcodes(input_file):

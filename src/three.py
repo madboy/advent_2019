@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import pytest
-from src.tools import process, timing
+from tools.tools import process, timing
 
 
 @dataclass

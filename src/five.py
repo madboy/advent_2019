@@ -1,6 +1,6 @@
 import operator
 import pytest
-from src.tools import process, get_digits, timing
+from tools.tools import process, get_digits, timing
 
 
 def get_value(mode, idx, intcodes):
