@@ -1,10 +1,15 @@
+import pytest
 from src.tools import process
 
 
-def run(input_file):
+def get_intcodes(input_file):
     for line in process(input_file):
-        solve_part1([int(n) for n in line.split(",")])
-        solve_part2([int(n) for n in line.split(",")])
+        return [int(n) for n in line.split(",")]
+
+
+def run(input_file):
+    print(solve_part1(get_intcodes(input_file)))
+    print(solve_part2(get_intcodes(input_file)))
 
 
 def run_program(intcodes):
@@ -28,7 +33,7 @@ def solve_part1(intcodes):
     intcodes[1] = 12
     intcodes[2] = 2
 
-    print(run_program(intcodes))
+    return run_program(intcodes)
 
 
 def solve_part2(intcodes):
@@ -40,9 +45,30 @@ def solve_part2(intcodes):
             r = run_program(intcodes_c)
             if r // 10000 == 1969:
                 if r == 19690720:
-                    print(f"{r} -> {100*one+two}")
-                    return
+                    return 100 * one + two
             else:
                 # leading values increase with each one, and then incrementally with each two,
                 # so we don't need to check for all leading values
                 break
+
+
+@pytest.mark.parametrize(
+    "intcodes,response,expected",
+    [
+        pytest.param([1, 0, 0, 0, 99], 2, [2, 0, 0, 0, 99]),
+        pytest.param([2, 3, 0, 3, 99], 2, [2, 3, 0, 6, 99]),
+        pytest.param([2, 4, 4, 5, 99, 0], 2, [2, 4, 4, 5, 99, 9801]),
+        pytest.param([1, 1, 1, 4, 99, 5, 6, 0, 99], 30, [30, 1, 1, 4, 2, 5, 6, 0, 99]),
+    ],
+)
+def test_part1_example(intcodes, response, expected):
+    assert run_program(intcodes) == response
+    assert intcodes == expected
+
+
+def test_part1():
+    assert solve_part1(get_intcodes("input/2")) == 4462686
+
+
+def test_part2():
+    assert solve_part2(get_intcodes("input/2")) == 5936

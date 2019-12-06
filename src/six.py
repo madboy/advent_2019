@@ -9,25 +9,50 @@ def find_path(start, end, graph):
     return path
 
 
-def run(input_file):
+def create_graph(input_file):
     graph = {"COM": None}
     for line in process(input_file):
         parent, orbiter = line.split(")")
         graph[orbiter] = parent
+    return graph
 
-    solve_part1(graph)
-    solve_part2(graph)
+
+def run(input_file):
+    graph = create_graph(input_file)
+
+    print(solve_part1(graph))
+    print(solve_part2(graph))
 
 
 def solve_part1(graph):
     total = 0
     for so in graph:
         total += len(find_path(so, "COM", graph))
-    print(total)
+    return total
 
 
 def solve_part2(graph):
     you = set(find_path("YOU", "COM", graph))
     san = set(find_path("SAN", "COM", graph))
     # if we remove common nodes we should have number of jumps between us
-    print(len(you) + len(san) - 2 * len(you.intersection(san)))
+    return len(you) + len(san) - 2 * len(you.intersection(san))
+
+
+def test_part1_example():
+    graph = create_graph("input/6.test")
+    assert solve_part1(graph) == 42
+
+
+def test_part1():
+    graph = create_graph("input/6")
+    assert solve_part1(graph) == 270768
+
+
+def test_part2_example():
+    graph = create_graph("input/6.test.2")
+    assert solve_part2(graph) == 4
+
+
+def test_part2():
+    graph = create_graph("input/6")
+    assert solve_part2(graph) == 451
