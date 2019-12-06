@@ -9,7 +9,14 @@ def get_value(mode, idx, intcodes):
 
 
 def run_program(intcodes, input_value=1):
-    ops = {1: operator.add, 2: operator.mul}
+    ops = {
+        1: operator.add,
+        2: operator.mul,
+        5: operator.ne,
+        6: operator.eq,
+        7: operator.lt,
+        8: operator.eq,
+    }
 
     i = 0
     while i < len(intcodes):
@@ -32,34 +39,18 @@ def run_program(intcodes, input_value=1):
             idx1 = intcodes[i + 1]
             print("output: ", get_value(mode1, idx1, intcodes))
             i += 2
-        elif opcode == 5:
+        elif opcode == 5 or opcode == 6:
             parameter1 = get_value(mode1, intcodes[i + 1], intcodes)
             parameter2 = get_value(mode2, intcodes[i + 2], intcodes)
-            if parameter1 != 0:
+            if ops[opcode](parameter1, 0):
                 i = parameter2
             else:
                 i += 3
-        elif opcode == 6:
-            parameter1 = get_value(mode1, intcodes[i + 1], intcodes)
-            parameter2 = get_value(mode2, intcodes[i + 2], intcodes)
-            if parameter1 == 0:
-                i = parameter2
-            else:
-                i += 3
-        elif opcode == 7:
+        elif opcode == 7 or opcode == 8:
             parameter1 = get_value(mode1, intcodes[i + 1], intcodes)
             parameter2 = get_value(mode2, intcodes[i + 2], intcodes)
             idx3 = intcodes[i + 3]
-            if parameter1 < parameter2:
-                intcodes[idx3] = 1
-            else:
-                intcodes[idx3] = 0
-            i += 4
-        elif opcode == 8:
-            parameter1 = get_value(mode1, intcodes[i + 1], intcodes)
-            parameter2 = get_value(mode2, intcodes[i + 2], intcodes)
-            idx3 = intcodes[i + 3]
-            if parameter1 == parameter2:
+            if ops[opcode](parameter1, parameter2):
                 intcodes[idx3] = 1
             else:
                 intcodes[idx3] = 0
