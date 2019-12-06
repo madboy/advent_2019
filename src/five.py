@@ -32,6 +32,38 @@ def run_program(intcodes, input_value=1):
             idx1 = intcodes[i + 1]
             print("output: ", get_value(mode1, idx1, intcodes))
             i += 2
+        elif opcode == 5:
+            parameter1 = get_value(mode1, intcodes[i + 1], intcodes)
+            parameter2 = get_value(mode2, intcodes[i + 2], intcodes)
+            if parameter1 != 0:
+                i = parameter2
+            else:
+                i += 3
+        elif opcode == 6:
+            parameter1 = get_value(mode1, intcodes[i + 1], intcodes)
+            parameter2 = get_value(mode2, intcodes[i + 2], intcodes)
+            if parameter1 == 0:
+                i = parameter2
+            else:
+                i += 3
+        elif opcode == 7:
+            parameter1 = get_value(mode1, intcodes[i + 1], intcodes)
+            parameter2 = get_value(mode2, intcodes[i + 2], intcodes)
+            idx3 = intcodes[i + 3]
+            if parameter1 < parameter2:
+                intcodes[idx3] = 1
+            else:
+                intcodes[idx3] = 0
+            i += 4
+        elif opcode == 8:
+            parameter1 = get_value(mode1, intcodes[i + 1], intcodes)
+            parameter2 = get_value(mode2, intcodes[i + 2], intcodes)
+            idx3 = intcodes[i + 3]
+            if parameter1 == parameter2:
+                intcodes[idx3] = 1
+            else:
+                intcodes[idx3] = 0
+            i += 4
         else:
             print("unknown opcode", intcodes[i])
             break
@@ -39,8 +71,5 @@ def run_program(intcodes, input_value=1):
 
 def run(input_file):
     for line in process(input_file):
-        run_program([int(n) for n in line.split(",")])
-
-
-def solve(input):
-    pass
+        run_program([int(n) for n in line.split(",")], 1)
+        run_program([int(n) for n in line.split(",")], 5)
