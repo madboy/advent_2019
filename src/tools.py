@@ -1,3 +1,6 @@
+import pytest
+
+
 def process(filename):
     with open(filename, "r") as f:
         for line in f:
@@ -28,3 +31,18 @@ def get_digits(number):
     hundreds = (number // 100) % 10
     thousands = (number // 1000) % 10
     return ones, tens, hundreds, thousands
+
+
+@pytest.mark.parametrize(
+    "numbers,expected",
+    [
+        pytest.param(1, (1, 0, 0, 0)),
+        pytest.param(21, (1, 2, 0, 0)),
+        pytest.param(340, (0, 4, 3, 0)),
+        pytest.param(1234, (4, 3, 2, 1)),
+        pytest.param(19002, (2, 0, 0, 9)),
+    ],
+)
+def test_get_digits_all(numbers, expected):
+    response = get_digits(numbers)
+    assert response == expected
