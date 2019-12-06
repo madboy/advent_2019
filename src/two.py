@@ -46,7 +46,7 @@ def solve_part2(intcodes):
             intcodes_c[1] = one
             intcodes_c[2] = two
             r = run_program(intcodes_c)
-            if r // 10000 == 1969:
+            if r // 100000 == 196:
                 if r == 19690720:
                     return 100 * one + two
             else:
