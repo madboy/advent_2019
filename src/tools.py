@@ -1,4 +1,6 @@
+import contextlib
 import pytest
+import time
 
 
 def process(filename):
@@ -23,6 +25,25 @@ def turn(current_direction, turn_direction):
     turns = {"left": -1, "right": 1, "straight": 0}
     new_direction = (directions[current_direction] + turns[turn_direction]) % 4
     return rdirections[new_direction]
+
+
+@contextlib.contextmanager
+def timing(name=""):
+    """
+    Variation of:
+    https://github.com/anthonywritescode/aoc2019/blob/master/support/support.py
+    """
+    before = time.time_ns()
+    try:
+        yield
+    finally:
+        after = time.time_ns()
+
+        unit = "μs"
+        if (t := (after - before) // 1000) > 10000:
+            t //= 1000
+            unit = "ms"
+        print(f"{name} -> {int(t)} {unit}")
 
 
 def get_digits(number):

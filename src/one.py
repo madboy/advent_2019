@@ -1,4 +1,4 @@
-from src.tools import process
+from src.tools import process, timing
 
 
 def fuel_requirement_part1(mass):
@@ -21,7 +21,8 @@ def solve_part1_and_2(input_file):
 
 
 def run(input_file):
-    part1, part2 = solve_part1_and_2(input_file)
+    with timing("Day 1: The Tyranny of the Rocket Equation"):
+        part1, part2 = solve_part1_and_2(input_file)
     print(part1)
     print(part2)
 

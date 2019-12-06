@@ -1,6 +1,6 @@
 import operator
 import pytest
-from src.tools import process, get_digits
+from src.tools import process, get_digits, timing
 
 
 def get_value(mode, idx, intcodes):
@@ -69,8 +69,11 @@ def run_program(intcodes, input_value=1):
 
 
 def run(input_file):
-    print(run_program(get_intcodes(input_file), 1))
-    print(run_program(get_intcodes(input_file), 5))
+    with timing("Day 5: Sunny with a Chance of Asteroids"):
+        part1 = run_program(get_intcodes(input_file), 1)
+        part2 = run_program(get_intcodes(input_file), 5)
+    print(part1)
+    print(part2)
 
 
 def test_part1():

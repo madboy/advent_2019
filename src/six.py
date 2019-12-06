@@ -1,4 +1,4 @@
-from src.tools import process
+from src.tools import process, timing
 
 
 def find_path(start, end, graph):
@@ -18,10 +18,12 @@ def create_graph(input_file):
 
 
 def run(input_file):
-    graph = create_graph(input_file)
-
-    print(solve_part1(graph))
-    print(solve_part2(graph))
+    with timing("Day 6: Universal Orbit Map"):
+        graph = create_graph(input_file)
+        part1 = solve_part1(graph)
+        part2 = solve_part2(graph)
+    print(part1)
+    print(part2)
 
 
 def solve_part1(graph):

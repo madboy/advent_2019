@@ -1,5 +1,5 @@
 import pytest
-from src.tools import process
+from src.tools import process, timing
 
 
 def get_intcodes(input_file):
@@ -8,8 +8,11 @@ def get_intcodes(input_file):
 
 
 def run(input_file):
-    print(solve_part1(get_intcodes(input_file)))
-    print(solve_part2(get_intcodes(input_file)))
+    with timing("Day 2: 1202 Program Alarm"):
+        part1 = solve_part1(get_intcodes(input_file))
+        part2 = solve_part2(get_intcodes(input_file))
+    print(part1)
+    print(part2)
 
 
 def run_program(intcodes):

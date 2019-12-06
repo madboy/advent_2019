@@ -1,5 +1,5 @@
 import pytest
-from src.tools import process
+from src.tools import process, timing
 
 
 def criteria(number):
@@ -35,8 +35,9 @@ def solve_part1_and_part2(low, high):
 
 def run(input_file):
     for line in process(input_file):
-        low, high = [int(n) for n in line.split("-")]
-        part1, part2 = solve_part1_and_part2(low, high)
+        with timing("Day 4: Secure Container"):
+            low, high = [int(n) for n in line.split("-")]
+            part1, part2 = solve_part1_and_part2(low, high)
         print(part1)
         print(part2)
 

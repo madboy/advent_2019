@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import pytest
-from src.tools import process
+from src.tools import process, timing
 
 
 @dataclass
@@ -23,7 +23,8 @@ def get_wires(input_file):
 
 
 def run(input_file):
-    part1, part2 = solve_part1_and_part2(get_wires(input_file))
+    with timing("Day 3: Crossed Wires"):
+        part1, part2 = solve_part1_and_part2(get_wires(input_file))
     print(part1)
     print(part2)
 
