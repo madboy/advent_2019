@@ -2,11 +2,15 @@ import pytest
 from tools.tools import process, timing
 
 
+def ordered(n):
+    return n[0] <= n[1] <= n[2] <= n[3] <= n[4] <= n[5]
+
+
 def criteria(number):
-    n = list(str(number))
-    if len(n) == len(set(n)):
+    n = str(number)
+    if not ordered(n):
         return False, False
-    if n == sorted(n):
+    if len(n) != len(set(n)):
         return True, criteria2(n)
     return False, False
 
