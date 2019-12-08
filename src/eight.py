@@ -2,26 +2,33 @@ from collections import Counter
 from tools.tools import process, timing
 
 
+class LayerCounter(Counter):
+    # we only care about ordering layers on the number of zeros
+    def __lt__(self, other):
+        return self.get("0", 0) <= other.get("0", 0) and self != other
+
+
 def run(input_file):
+    width, height = 25, 6
     with timing("Day 8: Space Image Format"):
         for line in process(input_file):
-            print(solve_part1(line, 25, 6))
-            image = solve_part2(line, 25, 6)
-            _print_image(image, 25, 6)
+            part1 = solve_part1(line, width, height)
+            part2 = solve_part2(line, width, height)
+    print(part1)
+    _print_image(part2, width, height)
 
 
 def solve_part1(line, width, height):
     layers = []
     for l in range(len(line) // (width * height)):
-        layer = Counter(line[l * (width * height) : (l + 1) * (width * height)])
-        layers.append(layer)
+        layers.append(
+            LayerCounter(line[l * (width * height) : (l + 1) * (width * height)])
+        )
 
-    layer_of_choice = None
-    nbr_of_zeros = 10000
-    for layer in layers:
-        if layer.get("0", 100000) < nbr_of_zeros:
-            nbr_of_zeros = layer.get("0")
-            layer_of_choice = layer
+    layers = sorted(layers)
+    # as the layers are sorted on ascending number of zeros
+    # we want the first layer
+    layer_of_choice = layers[0]
 
     return layer_of_choice.get("1") * layer_of_choice.get("2")
 
@@ -30,18 +37,17 @@ def _print_image(image, width, height):
     for y in range(height):
         line = ""
         for x in range(width):
-            line += "." if image[x + y * width] == "0" else "X"
+            line += "." if image[x + y * width] == "0" else "*"
         print(line)
 
 
 def solve_part2(line, width, height):
     image = ""
     size = width * height
-    layers = len(line) // (size)
+    layers = len(line) // size
     for px in range(size):
         for l in range(layers):
-            value = line[px + l * (size)]
-            if value == "0" or value == "1":
+            if (value := line[px + l * size]) in ["0", "1"]:
                 image += value
                 break
     return image
@@ -74,4 +80,3 @@ def test_part2_example():
     response = solve_part2(line, 2, 2)
 
     assert response == "0110"
-
