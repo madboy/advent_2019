@@ -38,12 +38,12 @@ def solve_part1_and_part2(low, high):
 
 
 def run(input_file):
-    for line in process(input_file):
-        with timing("Day 4: Secure Container"):
-            low, high = [int(n) for n in line.split("-")]
-            part1, part2 = solve_part1_and_part2(low, high)
-        print(part1)
-        print(part2)
+    line = next(process(input_file))
+    with timing("Day 4: Secure Container"):
+        low, high = [int(n) for n in line.split("-")]
+        part1, part2 = solve_part1_and_part2(low, high)
+    print(part1)
+    print(part2)
 
 
 def test_part1_and_part2():

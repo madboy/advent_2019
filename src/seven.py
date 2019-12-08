@@ -26,11 +26,6 @@ def get_value(mode, idx, intcodes):
     return idx
 
 
-def get_intcodes(input_file):
-    for line in process(input_file):
-        return [int(n) for n in line.split(",")]
-
-
 def run_program(amp):
     ops = {
         1: operator.add,
@@ -165,9 +160,9 @@ def solve_part2(line):
 
 def run(input_file):
     with timing("Day 7: Amplification Circuit"):
-        for line in process(input_file):
-            part1 = solve_part1(line)
-            part2 = solve_part2(line)
+        line = next(process(input_file))
+        part1 = solve_part1(line)
+        part2 = solve_part2(line)
     print(part1)
     print(part2)
 
@@ -334,11 +329,11 @@ def test_part2_example_2():
 
 
 def test_part1():
-    for line in process("input/7"):
-        part1 = solve_part1(line)
+    line = next(process("input/7"))
+    part1 = solve_part1(line)
     assert part1 == 116680
 
 def test_part2():
-    for line in process("input/7"):
-        part1 = solve_part2(line)
+    line = next(process("input/7"))
+    part1 = solve_part2(line)
     assert part1 == 89603079

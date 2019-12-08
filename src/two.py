@@ -3,8 +3,8 @@ from tools.tools import process, timing
 
 
 def get_intcodes(input_file):
-    for line in process(input_file):
-        return [int(n) for n in line.split(",")]
+    line = next(process(input_file))
+    return [int(n) for n in line.split(",")]
 
 
 def run(input_file):

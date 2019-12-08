@@ -11,9 +11,9 @@ class LayerCounter(Counter):
 def run(input_file):
     width, height = 25, 6
     with timing("Day 8: Space Image Format"):
-        for line in process(input_file):
-            part1 = solve_part1(line, width, height)
-            part2 = solve_part2(line, width, height)
+        line = next(process(input_file))
+        part1 = solve_part1(line, width, height)
+        part2 = solve_part2(line, width, height)
     print(part1)
     _print_image(part2, width, height)
 
@@ -54,15 +54,15 @@ def solve_part2(line, width, height):
 
 
 def test_part1():
-    for line in process("input/8"):
-        response = solve_part1(line, 25, 6)
+    line = next(process("input/8"))
+    response = solve_part1(line, 25, 6)
 
     assert response == 1088
 
 
 def test_part2():
-    for line in process("input/8"):
-        response = solve_part2(line, 25, 6)
+    line = next(process("input/8"))
+    response = solve_part2(line, 25, 6)
     assert (
         response
         == "100000110010001100101110010000100101000110010100101000010000010101111011100100001011000100100101001010000100100010010010100101111001110001001001011100"
