@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import argparse
 from dataclasses import dataclass
-from src import one, two, three, four, five, six, seven, eight
+from src import one, two, three, four, five, six, seven, eight, nine
 import sys
 from typing import Callable
 
@@ -25,6 +25,7 @@ days = [
     Day(six.run, "input/6"),
     Day(seven.run, "input/7"),
     Day(eight.run, "input/8"),
+    Day(nine.run, "input/9"),
 ]
 
 
