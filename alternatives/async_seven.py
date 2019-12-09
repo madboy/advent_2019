@@ -60,7 +60,7 @@ class Amplifier:
                     self.in_data.task_done()
                     self.pc += 2
                 except asyncio.QueueEmpty:
-                    await asyncio.sleep(0.00001)
+                    await asyncio.sleep(0)
             elif opcode == 4:  # output
                 self.out_data.put_nowait(self.get_value(inst, 1))
                 self.pc += 2
