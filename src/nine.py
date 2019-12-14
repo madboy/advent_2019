@@ -1,4 +1,4 @@
-from collections import abc, defaultdict
+from collections import defaultdict
 from dataclasses import dataclass
 import operator
 from tools.tools import process, timing
