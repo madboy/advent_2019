@@ -123,13 +123,19 @@ def solve_part2(moons):
     while not x or not y or not z:
         tick(moons)
         count += 1
-        if not x and all(m.pos.x == start[i].pos.x and m.vel.x == 0 for i, m in enumerate(moons)):
+        if not x and all(
+            m.pos.x == start[i].pos.x and m.vel.x == 0 for i, m in enumerate(moons)
+        ):
             x.append(count)
 
-        if not y and all(m.pos.y == start[i].pos.y and m.vel.y == 0 for i, m in enumerate(moons)):
+        if not y and all(
+            m.pos.y == start[i].pos.y and m.vel.y == 0 for i, m in enumerate(moons)
+        ):
             y.append(count)
 
-        if not z and all(m.pos.z == start[i].pos.z and m.vel.z == 0 for i, m in enumerate(moons)):
+        if not z and all(
+            m.pos.z == start[i].pos.z and m.vel.z == 0 for i, m in enumerate(moons)
+        ):
             z.append(count)
 
     return lcm3(x[0], y[0], z[0])
