@@ -43,14 +43,27 @@ def get_reactions(input_file):
 def run(input_file):
     with timing("Day 14: Space Stoichiometry"):
         part1 = solve_part1(get_reactions(input_file))
+        part2 = solve_part2(get_reactions(input_file))
     print(part1)
+    print(part2)
 
 
 def solve_part1(reactions):
+    return _produce(C("FUEL", 1), reactions)
+
+
+def solve_part2(reactions):
+
+    count = 2509100
+    while _produce(C("FUEL", count), reactions) < 1000000000000:
+        count += 1
+    return count - 1
+
+
+def _produce(start, reactions):
     to_produce = deque()
     production = Counter()
-
-    to_produce.append(C("FUEL", 1))
+    to_produce.append(start)
 
     while to_produce:
         target = to_produce.popleft()
@@ -82,6 +95,11 @@ def solve_part1(reactions):
 def test_part1():
     reactions = get_reactions("input/14")
     assert solve_part1(reactions) == 612880
+
+
+def test_part2():
+    reactions = get_reactions("input/14")
+    assert solve_part2(reactions) == 2509120
 
 
 def test_part1_example():
