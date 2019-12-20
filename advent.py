@@ -15,6 +15,7 @@ from src import (
     eleven,
     twelve,
     thirteen,
+    fourteen,
 )
 import sys
 from typing import Callable
@@ -44,6 +45,7 @@ days = [
     Day(eleven.run, "input/11"),
     Day(twelve.run, "input/12"),
     Day(thirteen.run, "input/13"),
+    Day(fourteen.run, "input/14"),
 ]
 
 
