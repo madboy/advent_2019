@@ -7,8 +7,8 @@ from typing import List
 def run(input_file):
     with timing("Day 16: Flawed Frequency Transmission"):
         for line in process(input_file):
-            part1 = solve_part1(line, 100)
-            part2 = solve_part2(line, 1)
+            part1 = solve_part1(line[:], 100)
+            part2 = solve_part2(line[:], 100)
     print(part1)
     print(part2)
 
@@ -53,25 +53,23 @@ def solve_part1(line, phases=1):
             total = 0
             for a, b in zip(line, pattern):
                 total += a * b
-            output.append(int(str(total)[-1]))
+            output.append(abs(total) % 10)
         line = output
     return "".join([str(n) for n in line[:8]])
 
 
 def solve_part2(line, phases=1):
-    line = [int(c) for c in line]
+    offset = int(line[:7])
     line = line * 10000
-    min_length = len(line)
-    patterns = generate_patterns(min_length)
+    line = line[offset:]
+    line = [int(c) for c in line]
+    line.reverse()
     for _ in range(phases):
-        output = []
-        for position in range(1, len(line) + 1):
-            pattern = patterns[position]
-            total = 0
-            for a, b in zip(line, pattern):
-                total += a * b
-            output.append(int(str(total)[-1]))
-        line = output
+        total = 0
+        for i in range(len(line)):
+            total += line[i]
+            line[i] = abs(total) % 10
+    line.reverse()
     return "".join([str(n) for n in line[:8]])
 
 
@@ -109,7 +107,14 @@ def test_part1_example(line, phases, expected):
     assert response[:8] == expected
 
 
-def test_part2_example():
-    line = ""
-    response = solve_part2(line)
-    assert response == ""
+@pytest.mark.parametrize(
+    "line, phases, expected",
+    [
+        pytest.param("03036732577212944063491565474664", 100, "84462026"),
+        pytest.param("02935109699940807407585447034323", 100, "78725270"),
+        pytest.param("03081770884921959731165446850517", 100, "53553731"),
+    ],
+)
+def test_part2_example(line, phases, expected):
+    response = solve_part2(line, phases=phases)
+    assert response == expected

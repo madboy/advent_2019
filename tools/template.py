@@ -24,5 +24,5 @@ def test_part1_example():
 
 def test_part2_example():
     line = ""
-    response = solve_part1(line)
+    response = solve_part2(line)
     assert response == "None"
