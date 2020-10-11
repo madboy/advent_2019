@@ -16,6 +16,7 @@ from src import (
     twelve,
     thirteen,
     fourteen,
+    sixteen,
 )
 import sys
 from typing import Callable
@@ -46,13 +47,18 @@ days = [
     Day(twelve.run, "input/12"),
     Day(thirteen.run, "input/13"),
     Day(fourteen.run, "input/14"),
+    (),
+    Day(sixteen.run, "input/16"),
 ]
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run an advent of code entry.")
     parser.add_argument(
-        "day", metavar="day", type=int, help="the day of advent",
+        "day",
+        metavar="day",
+        type=int,
+        help="the day of advent",
     )
     args = parser.parse_args()
 
